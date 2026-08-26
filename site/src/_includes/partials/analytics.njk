@@ -11,3 +11,9 @@
 {%- if site.analytics.plausibleDomain %}
 <script defer data-domain="{{ site.analytics.plausibleDomain }}" src="https://plausible.io/js/script.js"></script>
 {%- endif %}
+{#- Vercel Web Analytics: framework-agnostic script, served by Vercel itself
+    at /_vercel/insights. Only meaningful when deployed on Vercel with
+    Web Analytics enabled (Project settings -> Web Analytics). -#}
+{%- if site.analytics.vercel %}
+<script defer src="/_vercel/insights"></script>
+{%- endif %}

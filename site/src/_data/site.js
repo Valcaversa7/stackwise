@@ -65,6 +65,11 @@ module.exports = {
     // Google tag id (gtag.js). Leave empty to emit no analytics at all.
     googleTagId: "",
     plausibleDomain: "",
+    // Vercel Web Analytics: emits <script defer src="/_vercel/insights">
+    // (the framework-agnostic integration — this site is Eleventy, not
+    // Next.js, so the React component from the Vercel docs does not apply).
+    // Requires deployment on Vercel + Web Analytics enabled in the project.
+    vercel: true,
   },
 
   nav: [
