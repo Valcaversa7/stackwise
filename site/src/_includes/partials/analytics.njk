@@ -11,3 +11,10 @@
 {%- if site.analytics.plausibleDomain %}
 <script defer data-domain="{{ site.analytics.plausibleDomain }}" src="https://plausible.io/js/script.js"></script>
 {%- endif %}
+{#- Vercel Web Analytics -#}
+{%- if site.analytics.vercelEnabled %}
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+{%- endif %}

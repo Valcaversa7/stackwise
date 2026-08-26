@@ -65,6 +65,8 @@ module.exports = {
     // Google tag id (gtag.js). Leave empty to emit no analytics at all.
     googleTagId: "",
     plausibleDomain: "",
+    // Vercel Web Analytics (enabled by default when deployed to Vercel)
+    vercelEnabled: true,
   },
 
   nav: [

@@ -2,7 +2,7 @@
   "name": "stackwise",
   "version": "1.0.0",
   "private": true,
-  "description": "Stackwise \u2014 an editorial tech & productivity publication. Eleventy 11ty static site.",
+  "description": "Stackwise — an editorial tech & productivity publication. Eleventy 11ty static site.",
   "scripts": {
     "build": "eleventy",
     "start": "eleventy --serve --port 8080",
@@ -17,5 +17,8 @@
     "@11ty/eleventy": "^3.0.0",
     "html-minifier-terser": "^5.0.0",
     "markdown-it": "^14.1.0"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }
