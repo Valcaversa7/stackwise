@@ -1,0 +1,222 @@
+---
+ogType: article
+---
+{% extends "layouts/base.njk" %}
+{%- set a = authors[author] or authors.mayacohen -%}
+{%- set neighbours = collections | neighbours(page) -%}
+{%- set relatedPosts = collections | relatedTo(tags, page.url, 3) -%}
+{%- set words = content | wordCount -%}
+{%- set crumbs = categoryKey | crumbItems(title, category) -%}
+
+{#- ------------------------------------------------------------------
+    Structured data. Built here rather than in a data file because
+    Eleventy data files only ever receive global data — never `page` or
+    front matter. We assemble the two <script> blocks and emit them through the `structuredData` block in layouts/base.njk.
+    ------------------------------------------------------------------ -#}
+{%- set articleLd = {
+  "@context": "https://schema.org",
+  "@type": schemaType or "BlogPosting",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": site.url + page.url },
+  "headline": title,
+  "description": description or (content | plainText(200)),
+  "image": [site.url + (image or "/assets/img/og-default.svg")],
+  "datePublished": page.date | isoDate,
+  "dateModified": (updated or page.date) | isoDate,
+  "inLanguage": site.locale,
+  "wordCount": words,
+  "articleSection": category or "Guides",
+  "keywords": (tags | reject('equalto', 'post') | join(', ')),
+  "author": {
+    "@type": "Person",
+    "name": a.name,
+    "jobTitle": a.role,
+    "url": site.url + a.url
+  },
+  "publisher": { "@id": site.url + "/#organization" },
+  "isPartOf": { "@id": site.url + "/#website" }
+} -%}
+{%- set crumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": crumbs
+} -%}
+{%- set ldScripts = '<script type="application/ld+json">' + (articleLd | jsonLd) + '</script>
+  <script type="application/ld+json">' + (crumbLd | jsonLd) + '</script>' -%}
+
+{% block structuredData %}
+{{ ldScripts | safe }}
+{% endblock %}
+
+{% block main %}
+<article class="article" itemscope itemtype="https://schema.org/BlogPosting">
+
+  {% include "partials/breadcrumbs.njk" %}
+
+  <header class="article__header">
+    <div class="article__meta-top">
+      {%- if category %}
+      <a class="badge badge--solid" href="/{{ categoryKey }}/">{{ category }}</a>
+      {%- endif %}
+      <span class="eyebrow">
+        <time datetime="{{ page.date | isoDate }}" itemprop="datePublished">{{ page.date | readableDate }}</time>
+      </span>
+      {%- if updated %}
+      <span class="eyebrow" aria-label="Last updated">
+        Updated <time datetime="{{ updated | isoDate }}" itemprop="dateModified">{{ updated | readableDate }}</time>
+      </span>
+      {%- endif %}
+    </div>
+
+    <h1 itemprop="headline">{{ title }}</h1>
+
+    {%- if description %}
+    <p class="article__standfirst" itemprop="description">{{ description }}</p>
+    {%- endif %}
+
+    <div class="article__byline">
+      <img src="{{ a.avatar }}" alt="" width="44" height="44" loading="lazy" itemprop="image">
+      <div class="who" itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <a href="{{ a.url }}" itemprop="url"><span itemprop="name">{{ a.name }}</span></a>
+        <span>{{ a.role }} · {{ content | readingTime }} · {{ words }} words</span>
+      </div>
+      <div class="actions">
+        <button class="icon-btn" type="button" data-copy-link aria-label="Copy link to this article">
+          {% include "icons/link.svg" %}
+        </button>
+        <a class="icon-btn" href="https://x.com/intent/tweet?text={{ title | urlencode }}&amp;url={{ site.url | urlencode }}{{ page.url | urlencode }}"
+           rel="noopener noreferrer nofollow" target="_blank" aria-label="Share on X">
+          {% include "icons/share.svg" %}
+        </a>
+      </div>
+    </div>
+  </header>
+
+  {%- if image %}
+  <figure class="article__hero">
+    <img
+      src="{{ image }}"
+      alt="{{ imageAlt or title }}"
+      width="1600" height="{{ imageHeight or 900 }}"
+      fetchpriority="high" decoding="async"
+      itemprop="image"
+      style="aspect-ratio:{{ imageRatio or '16/9' }}"
+    >
+    {%- if imageCaption %}
+    <figcaption>{{ imageCaption }}</figcaption>
+    {%- endif %}
+  </figure>
+  {%- endif %}
+
+  {#- ============ TOP BANNER AD (below the fold line, above the copy) ===== -#}
+  {%- set slot = "headerBanner" -%}
+  {%- set variant = "banner" -%}
+  {%- set variantLabel = "Leaderboard · 728×90" -%}
+  {% include "partials/ad-slot.njk" %}
+
+  {%- if toc %}
+  <nav class="toc" aria-labelledby="toc-title">
+    <p class="toc__title" id="toc-title">In this article</p>
+    <ol>
+      {%- for item in toc %}
+      <li><a href="#{{ item.heading | slugify }}">{{ item.heading }}</a></li>
+      {%- endfor %}
+    </ol>
+  </nav>
+  {%- endif %}
+
+  {#- Body with an in-article ad injected mid-way. Splitting on the closing
+      paragraph tag keeps the HTML valid and the ad out of any list/table. -#}
+  {%- set paragraphs = content | safe | splitOn("</p>") -%}
+  {%- set adAfter = adPosition or 5 -%}
+  {%- set needsAd = paragraphs.length > adAfter + 3 -%}
+
+  <div class="prose" itemprop="articleBody">
+    {%- for chunk in paragraphs %}
+    {{ chunk | safe }}{% if not loop.last %}</p>{% endif %}
+    {%- if needsAd and loop.index0 == adAfter %}
+      {%- set slot = "inArticle" -%}
+      {%- set variant = "banner" -%}
+      {%- set variantLabel = "In-article · responsive" -%}
+      {% include "partials/ad-slot.njk" %}
+    {%- endif %}
+    {%- endfor %}
+  </div>
+
+  {%- if tags %}
+  <div class="tags-row">
+    {%- for t in tags %}
+    {%- if t != "post" %}<a class="badge" href="/topic/{{ t | slugify }}/">#{{ t }}</a>{% endif %}
+    {%- endfor %}
+  </div>
+  {%- endif %}
+
+  {#- ============ END-OF-ARTICLE AD ======================================= -#}
+  {%- set slot = "inFeed" -%}
+  {%- set variant = "rect" -%}
+  {%- set variantLabel = "In-feed · 336×280" -%}
+  {% include "partials/ad-slot.njk" %}
+
+  <footer class="article__footer">
+
+    {# ---- Author bio box ---- #}
+    <aside class="author-card" aria-label="About the author">
+      <img src="{{ a.avatar }}" alt="" width="80" height="80" loading="lazy">
+      <div>
+        <h3>{{ a.name }}</h3>
+        <span class="role">{{ a.role }} at {{ site.name }}</span>
+        <p>{{ a.bio }}</p>
+        <div class="author-card__links">
+          <a href="{{ a.url }}">Full bio</a>
+          {%- for s in a.social %}
+          <a href="{{ s.url }}" rel="noopener noreferrer nofollow">{{ s.label }}</a>
+          {%- endfor %}
+        </div>
+      </div>
+    </aside>
+
+    <div class="share-row">
+      <span>Found this useful?</span>
+      <button class="btn btn--ghost btn--sm" type="button" data-copy-link>Copy link</button>
+      <a class="btn btn--ghost btn--sm" href="mailto:?subject={{ title | urlencode }}&amp;body={{ site.url }}{{ page.url | urlencode }}">Email it</a>
+    </div>
+
+    {# ---- Related articles grid ---- #}
+    {%- if relatedPosts.length %}
+    <section class="related" aria-labelledby="related-title">
+      <div class="section-head">
+        <h2 id="related-title">Related articles</h2>
+        <a href="/blog/">Browse everything</a>
+      </div>
+      <div class="post-grid">
+        {%- for post in relatedPosts %}
+        {% include "partials/post-card.njk" %}
+        {%- endfor %}
+      </div>
+    </section>
+    {%- endif %}
+
+    {# ---- Older / newer ---- #}
+    <nav class="pager" aria-label="More articles">
+      {%- if neighbours.newer %}
+      <a class="prev" href="{{ neighbours.newer.url }}" rel="prev">
+        <span class="dir">← Newer</span>
+        <span class="t">{{ neighbours.newer.data.title }}</span>
+      </a>
+      {%- else %}<span></span>{% endif %}
+      {%- if neighbours.older %}
+      <a class="next" href="{{ neighbours.older.url }}" rel="next">
+        <span class="dir">Older →</span>
+        <span class="t">{{ neighbours.older.data.title }}</span>
+      </a>
+      {%- endif %}
+    </nav>
+  </footer>
+
+  {#- Newsletter at the end of the read: highest-converting placement -#}
+  <div class="widget widget--dark" style="margin-top:3rem">
+    {%- set variant = "inline" -%}
+    {%- set suffix = "-post" -%}
+    {% include "partials/newsletter.njk" %}
+  </div>
+</article>
+{% endblock %}

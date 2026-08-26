@@ -1,0 +1,58 @@
+---
+title: Search
+description: "Search every guide, tutorial and review published on Stackwise."
+robots: "noindex,follow"
+permalink: /search/
+---
+{% extends "layouts/base.njk" %}
+
+{% block main %}
+<div class="shell">
+  <div class="layout">
+    <div class="layout__main">
+      <header class="page-head" style="padding-top:0">
+        <p class="eyebrow">{{ collections.posts.length }} articles indexed</p>
+        <h1>Search {{ site.name }}</h1>
+        <p>Titles, descriptions and tags across every post. Results are ranked in
+        your browser — nothing you type is sent to a server.</p>
+      </header>
+
+      <div class="search-panel">
+        <form role="search" action="/search/" method="get" id="searchForm">
+          <label class="visually-hidden" for="searchInput">Search articles</label>
+          <input
+            id="searchInput"
+            type="search"
+            name="q"
+            placeholder="Try “monitor”, “zsh”, “backup”…"
+            autocomplete="off"
+            spellcheck="false"
+            autofocus
+          >
+          <button class="btn" type="submit">Search</button>
+        </form>
+      </div>
+
+      <p class="search-status" id="searchStatus" role="status" aria-live="polite"></p>
+
+      <ul class="result-list" id="searchResults"></ul>
+
+      <section id="searchFallback">
+        <div class="section-head">
+          <h2>Newest articles</h2>
+          <a href="/blog/">Full archive</a>
+        </div>
+        <div class="post-grid">
+          {%- for post in collections.posts | limit(6) %}
+          {% include "partials/post-card.njk" %}
+          {%- endfor %}
+        </div>
+      </section>
+    </div>
+
+    <div class="layout__side">
+      {% include "partials/sidebar.njk" %}
+    </div>
+  </div>
+</div>
+{% endblock %}

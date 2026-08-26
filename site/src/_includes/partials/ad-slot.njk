@@ -1,0 +1,33 @@
+{#
+  AdSense slot.
+
+  Until `site.adSense.client` holds a real ca-pub id, this renders a labelled
+  placeholder box that reserves layout space. That is deliberate: an AdSense
+  reviewer must never see an empty ad container, and your CLS must not jump
+  when the ad network fills the slot later.
+
+  Usage:  {% include "partials/ad-slot.njk" %}
+  with:   slot="inArticle", variant="rect"
+#}
+{%- set slotId = site.adSense.slots[slot] -%}
+{%- set isLive = site.adSense.enabled and site.adSense.client and site.adSense.client.indexOf("0000000000000000") === -1 -%}
+
+<div class="ad-slot ad-slot--{{ variant or 'banner' }}"
+     data-ad-slot="{{ slot }}"
+     role="complementary"
+     aria-label="Advertisement">
+  <span class="ad-slot__label">Advertisement</span>
+  {%- if isLive %}
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="{{ site.adSense.client }}"
+       data-ad-slot="{{ slotId }}"
+       data-ad-format="{{ format or 'auto' }}"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  {%- else %}
+  <div class="ad-slot__frame">
+    <p>{{ variantLabel or slot or 'Ad space' }} · 728×90 / responsive</p>
+  </div>
+  {%- endif %}
+</div>

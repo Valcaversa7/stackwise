@@ -1,0 +1,18 @@
+---
+permalink: /ads.txt
+eleventyExcludeFromCollections: true
+---
+{%- if site.adSense.adsTxtLine %}
+{{ site.adSense.adsTxtLine }}
+{%- else %}
+# ads.txt — Google AdSense
+#
+# Once your account is approved, Google shows the exact line to publish at
+# AdSense > Sites > your domain > ads.txt. It looks like this:
+#
+#   google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+#
+# Paste that line here (replacing the # comment lines) and redeploy.
+# Serving this file at /ads.txt is required for authorised sellers and
+# materially improves fill rate.
+{%- endif %}

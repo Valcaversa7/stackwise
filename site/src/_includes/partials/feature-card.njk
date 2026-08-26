@@ -1,0 +1,42 @@
+{#
+  Hero feature card. The first one on the page renders as the lead tile.
+  with: post, lead (bool), index (number)
+#}
+{%- set a = authors[post.data.author] or authors.mayacohen -%}
+{#- Lead tile is portrait-ish (4/3), the two flanking tiles are 16/10. -#}
+{%- set ratio = "4/3" if lead else "16/10" -%}
+{%- set imgHeight = 1200 if lead else 1000 -%}
+<article class="feature-card{% if lead %} feature-card--lead{% endif %}">
+  <div class="feature-card__media">
+    <img
+      src="{{ post.data.image or '/assets/img/placeholder-a.svg' }}"
+      alt=""
+      width="1600" height="{{ imgHeight }}"
+      loading="{% if index == 0 %}eager{% else %}lazy{% endif %}"
+      decoding="async"
+      fetchpriority="{% if index == 0 %}high{% else %}auto{% endif %}"
+      sizes="{% if lead %}(min-width: 55rem) 34rem, (min-width: 38rem) 90vw, 92vw{% else %}(min-width: 55rem) 20rem, 45vw{% endif %}"
+      style="aspect-ratio:{{ ratio }}"
+    >
+    {%- if post.data.category %}
+    <a class="badge badge--on-media" href="/{{ post.data.categoryKey or 'guides' }}/">{{ post.data.category }}</a>
+    {%- endif %}
+  </div>
+
+  <div class="feature-card__body">
+    {%- if not post.data.category %}
+    <p class="eyebrow">Featured</p>
+    {%- endif %}
+    <h3 class="feature-card__title">
+      <a href="{{ post.url }}">{{ post.data.title }}</a>
+    </h3>
+    <p class="feature-card__excerpt">{{ post.data.description or (post.templateContent | plainText(160)) }}</p>
+    <p class="byline">
+      <strong>{{ a.name }}</strong>
+      <span class="dot" aria-hidden="true">·</span>
+      <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+      <span class="dot" aria-hidden="true">·</span>
+      <span>{{ post.templateContent | readingTime }}</span>
+    </p>
+  </div>
+</article>

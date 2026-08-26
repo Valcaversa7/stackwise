@@ -1,0 +1,38 @@
+---
+title: Page not found
+description: "That page has moved or never existed."
+robots: "noindex,follow"
+permalink: /404.html
+eleventyExcludeFromCollections: true
+---
+{% extends "layouts/base.njk" %}
+
+{% block main %}
+<div class="shell">
+  <div class="article" style="text-align:center;padding-block:clamp(3rem,10vw,7rem)">
+    <p class="eyebrow">Error 404</p>
+    <h1 style="font-size:clamp(2.5rem,8vw,4.5rem);margin-bottom:1rem">This page moved on without us.</h1>
+    <p style="max-width:34rem;margin:0 auto 2rem;color:var(--muted)">
+      The link may be out of date, or the article was renamed. Try a search, or
+      pick up from one of the categories below.
+    </p>
+    <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+      {%- for item in site.nav %}
+      <a class="btn btn--ghost" href="{{ item.url }}">{{ item.title }}</a>
+      {%- endfor %}
+    </div>
+
+    <div class="section" style="text-align:left">
+      <div class="section-head">
+        <h2>Most recent articles</h2>
+        <a href="/blog/">Full archive</a>
+      </div>
+      <div class="post-grid">
+        {%- for post in collections.posts | limit(3) %}
+        {% include "partials/post-card.njk" %}
+        {%- endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

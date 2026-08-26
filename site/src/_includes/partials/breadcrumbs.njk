@@ -1,0 +1,21 @@
+{#
+  Breadcrumb nav. Included with no arguments — it reads the current page's
+  own data, which is in scope here. The matching BreadcrumbList JSON-LD is
+  built in layouts/post.njk from the same `crumbItems` filter, so the
+  visible trail and the structured data cannot drift apart.
+#}
+{%- set crumbs = categoryKey | crumbItems(title, category) -%}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    {%- for crumb in crumbs %}
+    <li>
+      {%- if crumb.url %}
+      <a href="{{ crumb.url }}">{{ crumb.name }}</a>
+      {%- else %}
+      <span aria-current="page">{{ crumb.name }}</span>
+      {%- endif %}
+      {%- if not loop.last %}<span class="sep" aria-hidden="true">/</span>{% endif %}
+    </li>
+    {%- endfor %}
+  </ol>
+</nav>

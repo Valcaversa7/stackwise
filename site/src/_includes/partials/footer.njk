@@ -1,0 +1,71 @@
+{# Multi-column dark footer: brand · sections · legal · newsletter #}
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="/" aria-label="{{ site.name }} — home">
+          <span class="brand-mark" aria-hidden="true">S</span>
+          <span class="brand-name">Stack<span>wise</span></span>
+        </a>
+        <p>{{ site.tagline }}. Independent, reader-supported writing on developer
+        tooling, hardware and productivity — tested before it is published.</p>
+        <ul class="tag-cloud" aria-label="Social links">
+          {%- for s in site.social %}
+          <li><a href="{{ s.url }}" {% if s.url.indexOf(site.url) !== 0 %}rel="noopener noreferrer nofollow"{% endif %}>{{ s.title }}</a></li>
+          {%- endfor %}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Browse</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          {%- for cat in collections.categoryPages %}
+          <li><a href="{{ cat.url }}">{{ cat.data.title }}</a></li>
+          {%- endfor %}
+          <li><a href="/blog/">All articles</a></li>
+          <li><a href="/search/">Search</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about/">About Us</a></li>
+          <li><a href="/contact/">Contact Us</a></li>
+          <li><a href="/editorial-policy/">Editorial policy</a></li>
+          <li><a href="/authors/">Our writers</a></li>
+          <li><a href="/feed.xml">RSS feed</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy-policy/">Privacy Policy</a></li>
+          <li><a href="/terms-of-service/">Terms of Service</a></li>
+          <li><a href="/disclaimer/">Disclaimer</a></li>
+          <li><a href="/affiliate-disclosure/">Affiliate disclosure</a></li>
+          <li><a href="/cookie-policy/">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="legal-note">
+        © <span id="year">{{ site.built | year }}</span> {{ site.name }}. All rights reserved.
+        Some links on this site are affiliate links; we may earn a commission at no
+        extra cost to you. Advertising is served by Google AdSense and third-party
+        vendors may use cookies to personalise ads — see our
+        <a href="/privacy-policy/">Privacy Policy</a> and
+        <a href="/cookie-policy/">Cookie Policy</a>.
+      </p>
+      <ul>
+        <li><a href="/privacy-policy/">Privacy</a></li>
+        <li><a href="/terms-of-service/">Terms</a></li>
+        <li><a href="/disclaimer/">Disclaimer</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>

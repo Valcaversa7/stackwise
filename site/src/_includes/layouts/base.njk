@@ -1,0 +1,142 @@
+{# =========================================================================
+   Base shell. Every template extends this and fills two blocks:
+
+     {% block structuredData %}  → extra <script type="application/ld+json">
+     {% block main %}            → page body
+
+   Nunjucks inheritance (rather than Eleventy's layout chain) is used on
+   purpose: a variable set inside a content template is NOT visible to its
+   layout, but block contents travel up. That is what lets post.njk emit
+   its own BlogPosting + BreadcrumbList into <head>.
+   ========================================================================= #}
+<!doctype html>
+<html lang="{{ site.locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {%- set pageTitle = seoTitle or title -%}
+  {%- set isHome = page.url == "/" -%}
+  {%- set fullTitle = pageTitle + " · " + site.name if pageTitle and not isHome else site.name + " — " + site.tagline -%}
+  {%- set metaDescription = description or site.description -%}
+  {%- set canonical = canonicalUrl or (site.url + page.url) -%}
+  {%- set ogImage = ogImage or (site.url + "/assets/img/og-default.svg") -%}
+
+  <title>{{ fullTitle }}</title>
+  <meta name="description" content="{{ metaDescription }}">
+  <meta name="robots" content="{{ robots or 'index,follow,max-image-preview:large,max-snippet:-1' }}">
+  <meta name="author" content="{{ site.name }}">
+  <meta name="theme-color" content="{{ site.themeColor }}">
+  <link rel="canonical" href="{{ canonical }}">
+
+  {#- Open Graph / Twitter -#}
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:type" content="{{ ogType or site.defaultOgType }}">
+  <meta property="og:locale" content="{{ site.locale }}">
+  <meta property="og:title" content="{{ pageTitle or site.name }}">
+  <meta property="og:description" content="{{ metaDescription }}">
+  <meta property="og:url" content="{{ canonical }}">
+  <meta property="og:image" content="{{ ogImage }}">
+  {%- if ogImageAlt %}
+  <meta property="og:image:alt" content="{{ ogImageAlt }}">
+  {%- endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@stackwise">
+  <meta name="twitter:title" content="{{ pageTitle or site.name }}">
+  <meta name="twitter:description" content="{{ metaDescription }}">
+  <meta name="twitter:image" content="{{ ogImage }}">
+
+  {#- Feeds, icons, manifest -#}
+  <link rel="alternate" type="application/rss+xml" title="{{ site.name }} — RSS" href="{{ site.url }}/feed.xml">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+
+  {#- Fonts. Loaded non-blocking with a system-font fallback in the stack,
+      so nothing renders blank if the request is slow or unavailable. -#}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+  </noscript>
+
+  {#- The entire stylesheet, inlined: one less render-blocking request.
+      Source of truth is src/assets/css/style.css (also served at
+      /assets/css/style.css for hotlinking). -#}
+  <style>{{ style | safe }}</style>
+
+  {#- Publisher identity + site-level SearchAction, on every page -#}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "{{ site.url }}/#organization",
+        "name": "{{ site.name }}",
+        "url": "{{ site.url }}",
+        "description": "{{ site.description }}",
+        "logo": { "@type": "ImageObject", "url": "{{ site.url }}/favicon.svg" },
+        "sameAs": {{ site.sameAs | dump | safe }}
+      },
+      {
+        "@type": "WebSite",
+        "@id": "{{ site.url }}/#website",
+        "url": "{{ site.url }}",
+        "name": "{{ site.name }}",
+        "description": "{{ site.description }}",
+        "inLanguage": "{{ site.locale }}",
+        "publisher": { "@id": "{{ site.url }}/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "{{ site.url }}{{ site.search.pageUrl }}?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
+
+  {% block structuredData %}
+  <script type="application/ld+json">{{ {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": site.url + page.url,
+    "url": site.url + page.url,
+    "name": title or site.name,
+    "description": description or site.description,
+    "inLanguage": site.locale,
+    "isPartOf": { "@id": site.url + "/#website" },
+    "publisher": { "@id": site.url + "/#organization" }
+  } | jsonLd | safe }}</script>
+  {% endblock %}
+
+  {#- AdSense loader: emitted only once a real ca-pub id is configured -#}
+  {%- set adClient = site.adSense.client -%}
+  {%- if site.adSense.enabled and adClient and adClient.indexOf("0000000000000000") === -1 %}
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ adClient }}" crossorigin="anonymous"></script>
+  {%- endif %}
+
+  {% include "partials/analytics.njk" %}
+</head>
+
+<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+  {%- if page.url != "/" %}<div class="progress" id="readingProgress" aria-hidden="true"></div>{% endif %}
+
+  {% include "partials/header.njk" %}
+
+  <main id="main">
+    {% block main %}{% endblock %}
+  </main>
+
+  {% include "partials/footer.njk" %}
+  {% include "partials/consent.njk" %}
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{#
+  Card used in the 3-column recent-posts grid.
+  with: post, showExcerpt (bool), sizes (img sizes attr)
+#}
+{%- set a = authors[post.data.author] or authors.mayacohen -%}
+<article class="post-card">
+  <div class="post-card__media">
+    <a href="{{ post.url }}" tabindex="-1" aria-hidden="true">
+      <img
+        src="{{ post.data.image or post.data.fallbackImage or '/assets/img/placeholder-a.svg' }}"
+        alt=""
+        width="1600" height="900"
+        loading="lazy" decoding="async"
+        sizes="{{ sizes or '(min-width: 58rem) 21rem, (min-width: 34rem) 45vw, 92vw' }}"
+        style="aspect-ratio:16/9"
+      >
+    </a>
+  </div>
+
+  <div>
+    {%- if post.data.category %}
+    <a class="badge" href="/{{ post.data.categoryKey or 'guides' }}/">{{ post.data.category }}</a>
+    {%- endif %}
+  </div>
+
+  <h3 class="post-card__title">
+    <a href="{{ post.url }}">{{ post.data.title }}</a>
+  </h3>
+
+  {%- if showExcerpt !== false %}
+  <p class="post-card__excerpt">{{ post.data.description or (post.templateContent | plainText(150)) }}</p>
+  {%- endif %}
+
+  <p class="byline">
+    <time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+    <span class="dot" aria-hidden="true">·</span>
+    <strong>{{ a.name }}</strong>
+    <span class="dot" aria-hidden="true">·</span>
+    <span>{{ post.templateContent | readingTime }}</span>
+  </p>
+</article>

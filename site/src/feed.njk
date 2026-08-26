@@ -1,0 +1,29 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+robots: "noindex"
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>{{ site.name | escape }}</title>
+    <link>{{ site.url }}/</link>
+    <description>{{ site.description | escape }}</description>
+    <language>{{ site.locale }}</language>
+    <lastBuildDate>{{ site.built | isoDate }}</lastBuildDate>
+    <atom:link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml"/>
+    <generator>Eleventy</generator>
+{%- for post in collections.posts | limit(20) %}
+{%- set author = authors[post.data.author] or authors.mayacohen %}
+    <item>
+      <title>{{ post.data.title | escape }}</title>
+      <link>{{ site.url }}{{ post.url }}</link>
+      <guid isPermaLink="true">{{ site.url }}{{ post.url }}</guid>
+      <pubDate>{{ post.date | isoDate }}</pubDate>
+      <dc:creator>{{ author.name | escape }}</dc:creator>
+      <category>{{ (post.data.category or "Guides") | escape }}</category>
+      <description>{{ (post.data.description or post.templateContent | plainText(300)) | escape }}</description>
+    </item>
+{%- endfor %}
+  </channel>
+</rss>

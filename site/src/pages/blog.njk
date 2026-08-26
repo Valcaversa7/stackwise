@@ -1,0 +1,9 @@
+---
+layout: layouts/hub.njk
+hubCategory: all
+permalink: "/blog/{% if pagination.pageNumber > 0 %}page/{{ pagination.pageNumber + 1 }}/{% endif %}"
+pagination:
+  data: collections.posts
+  size: 9
+  alias: pagedPosts
+---

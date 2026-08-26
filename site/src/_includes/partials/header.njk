@@ -1,0 +1,48 @@
+{# Sticky site header: brand · nav · search · mobile toggle #}
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="shell header-inner">
+    <a class="brand" href="/" aria-label="{{ site.name }} — home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span class="brand-name">Stack<span>wise</span></span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="siteNav"
+      aria-label="Toggle navigation menu"
+    ><span></span></button>
+
+    <nav class="site-nav" id="siteNav" aria-label="Primary">
+      {%- for item in site.nav %}
+      <a
+        href="{{ item.url }}"
+        {% if item.url == page.url or (item.url != '/' and page.url and page.url.indexOf(item.url) === 0) %}aria-current="page"{% endif %}
+      >{{ item.title }}</a>
+      {%- endfor %}
+    </nav>
+
+    <div class="header-actions">
+      {%- if site.search.enabled %}
+      <form class="searchbar" role="search" action="{{ site.search.pageUrl }}" method="get">
+        <label class="visually-hidden" for="site-search">Search {{ site.name }}</label>
+        {% include "icons/search.svg" %}
+        <input
+          id="site-search"
+          type="search"
+          name="q"
+          placeholder="Search…"
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <button type="submit" aria-label="Submit search">
+          {% include "icons/arrow-right.svg" %}
+        </button>
+      </form>
+      {%- endif %}
+    </div>
+  </div>
+</header>

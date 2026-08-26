@@ -1,0 +1,87 @@
+{#
+  Sidebar: About the author · Popular categories · Newsletter · Ad · Latest
+  Sticky on wide viewports (see .layout__side in style.css).
+#}
+<aside class="sidebar" aria-label="Sidebar">
+
+  {# ---- About the author ------------------------------------------------ #}
+  <div class="widget author-box">
+    <h2 class="widget__title">About the author</h2>
+    <div class="author-box__head">
+      <img class="author-box__avatar" src="{{ primaryAuthor.avatar }}" alt="" width="52" height="52" loading="lazy">
+      <div>
+        <p class="author-box__name">{{ primaryAuthor.name }}</p>
+        <p class="author-box__role">{{ primaryAuthor.role }} · {{ site.name }}</p>
+      </div>
+    </div>
+    <p class="author-box__bio">{{ primaryAuthor.bio }}</p>
+    <a class="author-box__link" href="{{ primaryAuthor.url }}">
+      Read the full bio {% include "icons/arrow-right.svg" %}
+    </a>
+  </div>
+
+  {# ---- Popular categories ---------------------------------------------- #}
+  <nav class="widget" aria-labelledby="popular-cats">
+    <h2 class="widget__title" id="popular-cats">Popular categories</h2>
+    <ul class="cat-list">
+      {%- for cat in collections.categoryPages %}
+      {%- set catData = (collections.categoryIndex | where('key', cat.data.categoryKey) | limit(1))[0] %}
+      <li>
+        <a href="{{ cat.url }}">
+          <span>{{ cat.data.title }}</span>
+          <span class="count">{{ catData.count if catData else 0 }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+      {%- for cat in collections.categoryIndex %}
+      {%- set known = collections.categoryPages | where('categoryKey', cat.key) | length %}
+      {%- if not known %}
+      <li>
+        <a href="/blog/?category={{ cat.key }}">
+          <span>{{ cat.title }}</span>
+          <span class="count">{{ cat.count }}</span>
+        </a>
+      </li>
+      {%- endif %}
+      {%- endfor %}
+    </ul>
+  </nav>
+
+  {# ---- Newsletter ------------------------------------------------------- #}
+  {% include "partials/newsletter.njk" %}
+
+  {# ---- Sidebar ad ------------------------------------------------------- #}
+  {%- set slot = "sidebar" -%}
+  {%- set variant = "rect" -%}
+  {%- set variantLabel = "Sidebar · 300×250" -%}
+  {% include "partials/ad-slot.njk" %}
+
+  {# ---- Latest posts ------------------------------------------------------ #}
+  <div class="widget">
+    <h2 class="widget__title">Latest posts</h2>
+    {%- for post in collections | recent(4) %}
+    <div class="mini-card">
+      <img src="{{ post.data.image or '/assets/img/placeholder-a.svg' }}" alt="" width="68" height="68" loading="lazy" decoding="async">
+      <div>
+        <p class="mini-card__title"><a href="{{ post.url }}">{{ post.data.title }}</a></p>
+        <p class="byline" style="margin:.2rem 0 0">
+          <time datetime="{{ post.date | isoDate }}">{{ post.date | shortDate }}</time>
+          <span class="dot" aria-hidden="true">·</span>
+          <span>{{ post.templateContent | readingTime }}</span>
+        </p>
+      </div>
+    </div>
+    {%- endfor %}
+  </div>
+
+  {# ---- Popular topics ---------------------------------------------------- #}
+  <div class="widget">
+    <h2 class="widget__title">Popular topics</h2>
+    <div class="tag-cloud">
+      {%- for t in collections.tagIndex | limit(12) %}
+      <a href="/topic/{{ t.tag | slugify }}/">{{ t.tag }}</a>
+      {%- endfor %}
+    </div>
+  </div>
+
+</aside>

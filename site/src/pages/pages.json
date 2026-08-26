@@ -1,0 +1,4 @@
+{
+  "//": "Pages under src/pages may use Liquid interpolation in their Markdown body ({{ site.name }}, {{ site.url }}). Posts deliberately do NOT — code samples containing {{ }} must not be parsed as template tags.",
+  "markdownTemplateEngine": "liquid"
+}

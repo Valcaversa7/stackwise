@@ -1,0 +1,57 @@
+---
+permalink: "/topic/{{ tagPage.tag | slugify }}/"
+pagination:
+  data: collections.tagIndex
+  size: 1
+  alias: tagPage
+eleventyComputed:
+  title: "{{ tagPage.tag }}"
+  description: "Every {{ site.name }} article tagged “{{ tagPage.tag }}” — {{ tagPage.count }} posts, newest first."
+  robots: "index,follow"
+---
+{% extends "layouts/base.njk" %}
+
+{% block main %}
+<div class="shell">
+  <div class="layout">
+    <div class="layout__main">
+      <header class="page-head">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a><span class="sep" aria-hidden="true">/</span></li>
+            <li><a href="/blog/">Articles</a><span class="sep" aria-hidden="true">/</span></li>
+            <li><span aria-current="page">{{ tagPage.tag }}</span></li>
+          </ol>
+        </nav>
+        <p class="eyebrow">Topic · {{ tagPage.count }} article{% if tagPage.count != 1 %}s{% endif %}</p>
+        <h1>{{ tagPage.tag }}</h1>
+        <p>Everything we have written about {{ tagPage.tag | lower }}, newest first.</p>
+      </header>
+
+      <div class="post-grid">
+        {%- for post in tagPage.posts %}
+        {% include "partials/post-card.njk" %}
+        {%- endfor %}
+      </div>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Other topics</h2>
+          <a href="/blog/">All articles</a>
+        </div>
+        <div class="tag-cloud">
+          {%- for t in collections.tagIndex %}
+          {%- if t.tag != tagPage.tag %}
+          <a href="/topic/{{ t.tag | slugify }}/">{{ t.tag }} <span style="color:var(--faint)">{{ t.count }}</span></a>
+          {%- endif %}
+          {%- endfor %}
+        </div>
+      </section>
+    </div>
+
+    <div class="layout__side">
+      {% include "partials/sidebar.njk" %}
+    </div>
+  </div>
+</div>
+{% endblock %}

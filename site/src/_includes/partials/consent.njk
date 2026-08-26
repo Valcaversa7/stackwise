@@ -1,0 +1,24 @@
+{#
+  Cookie / AdSense consent banner.
+  site.consent.region: "eu" (default, shown to EU/UK visitors), "all", or "off".
+  Choice is stored in localStorage and gates personalisation only — non-
+  personalised ads still serve when declined, per AdSense policy.
+#}
+{%- if site.consent.enabled and site.consent.region != "off" %}
+<div class="consent" id="consentBanner" hidden
+     data-region="{{ site.consent.region }}"
+     role="region" aria-label="Cookie consent">
+  <p>
+    We use cookies to measure readership and to serve advertising. Google
+    AdSense and its partners may use cookies to show ads based on your prior
+    visits to this and other sites. See our
+    <a href="/privacy-policy/">Privacy Policy</a> and
+    <a href="/cookie-policy/">Cookie Policy</a>.
+  </p>
+  <div class="consent__actions">
+    <button class="btn btn--light btn--sm" type="button" data-consent="accept">Accept all</button>
+    <button class="btn btn--ghost btn--sm" type="button" data-consent="reject"
+            style="border-color:rgb(255 255 255/.25);color:#e6e9ee">Reject</button>
+  </div>
+</div>
+{%- endif %}

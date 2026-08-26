@@ -1,0 +1,103 @@
+---
+permalink: /
+bodyClass: home
+title: null
+---
+{% extends "layouts/base.njk" %}
+
+{% block main %}
+{#- Featured rail: posts flagged `featured: true`, padded with the newest. -#}
+{%- set featuredPosts = (collections.posts | where('data.featured', true) | limit(3)) -%}
+{%- if featuredPosts.length < 3 %}
+  {%- set featuredPosts = collections.posts | limit(3) -%}
+{%- endif %}
+{%- set gridPosts = collections.posts | limit(9, featuredPosts.length) -%}
+
+{#- ---------------------------- HERO ---------------------------- -#}
+<section class="hero">
+  <div class="shell">
+    <div class="hero__lead">
+      <p class="eyebrow">{{ site.built | readableDate }} · Issue #{{ collections.posts.length }}</p>
+      <h1>Tools worth your time,<br>explained without the hype.</h1>
+      <p>{{ site.description }}</p>
+    </div>
+
+    <div class="featured-grid">
+      {%- for post in featuredPosts %}
+      {% include "partials/feature-card.njk" %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<div class="shell">
+  <div class="layout">
+    {#- ------------------------- MAIN COLUMN ------------------------- -#}
+    <div class="layout__main">
+
+      <section class="section">
+        <div class="section-head">
+          <h2>Latest articles</h2>
+          <a href="/blog/">All {{ collections.posts.length }} posts</a>
+        </div>
+
+        <div class="post-grid">
+          {%- for post in gridPosts | limit(6) %}
+          {% include "partials/post-card.njk" %}
+          {%- endfor %}
+        </div>
+
+        {#- In-feed ad between content rows -#}
+        {%- set slot = "inFeed" -%}
+        {%- set variant = "banner" -%}
+        {%- set variantLabel = "In-feed · responsive" -%}
+        {% include "partials/ad-slot.njk" %}
+
+        {%- if gridPosts.length > 6 %}
+        <div class="post-grid">
+          {%- for post in gridPosts | sliceFrom(6) %}
+          {% include "partials/post-card.njk" %}
+          {%- endfor %}
+        </div>
+        {%- endif %}
+
+        <div style="margin-top:2.5rem;text-align:center">
+          <a class="btn btn--ghost" href="/blog/">Browse the full archive</a>
+        </div>
+      </section>
+
+      {#- ---------------------- CATEGORY STRIPS ---------------------- -#}
+      {%- for cat in collections.categoryPages %}
+      {%- set catData = (collections.categoryIndex | where('key', cat.data.categoryKey) | limit(1))[0] %}
+      {%- if catData %}
+      <section class="section section--tight">
+        <div class="section-head">
+          <h2>{{ cat.data.title }}</h2>
+          <a href="{{ cat.url }}">See all {{ catData.count }}</a>
+        </div>
+        <div class="post-grid">
+          {%- for post in catData.posts | limit(3) %}
+          {% include "partials/post-card.njk" %}
+          {%- endfor %}
+        </div>
+      </section>
+      {%- endif %}
+      {%- endfor %}
+
+      {#- ------------------- END-OF-PAGE NEWSLETTER ------------------ -#}
+      <section class="section">
+        <div class="widget widget--dark" style="padding:clamp(1.5rem,4vw,2.5rem)">
+          {%- set variant = "inline" -%}
+          {%- set suffix = "-home" -%}
+          {% include "partials/newsletter.njk" %}
+        </div>
+      </section>
+    </div>
+
+    {#- --------------------------- SIDEBAR --------------------------- -#}
+    <div class="layout__side">
+      {% include "partials/sidebar.njk" %}
+    </div>
+  </div>
+</div>
+{% endblock %}

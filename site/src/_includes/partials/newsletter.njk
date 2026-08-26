@@ -1,0 +1,43 @@
+{#
+  Newsletter signup box. Progressive enhancement:
+  - No JS: the form posts straight to the provider.
+  - With JS: submit is intercepted, posted with fetch, and an inline
+    success/error message replaces the button. Nothing is sent anywhere
+    until you set site.newsletter.action.
+  with: variant ("sidebar" | "footer" | "inline")
+#}
+{%- set nl = site.newsletter -%}
+<div class="newsletter{% if variant == 'footer' %} newsletter--footer{% endif %}">
+  <h3>{{ nl.headline }}</h3>
+  <p>{{ nl.body }}</p>
+
+  <form
+    class="js-newsletter"
+    action="{{ nl.action }}"
+    method="post"
+    target="_blank"
+    rel="noopener"
+    data-provider="{{ nl.provider }}"
+    novalidate
+  >
+    <label class="visually-hidden" for="nl-email{{ suffix or '' }}">Email address</label>
+    <input
+      id="nl-email{{ suffix or '' }}"
+      type="email"
+      name="email"
+      placeholder="{{ nl.placeholderEmail }}"
+      autocomplete="email"
+      inputmode="email"
+      required
+    >
+    {#- Honeypot: real readers never see it, most bots fill it in. -#}
+    <input class="hp-field" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="btn" type="submit">Subscribe</button>
+    <p class="newsletter__status" role="status" aria-live="polite" hidden></p>
+  </form>
+
+  <p class="newsletter__note">
+    Join 12,400+ readers. We never sell your address — read our
+    <a href="/privacy-policy/">privacy policy</a>.
+  </p>
+</div>

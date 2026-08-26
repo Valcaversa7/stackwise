@@ -1,0 +1,49 @@
+{% extends "layouts/base.njk" %}
+
+{% block structuredData %}
+{%- set sdType = "AboutPage" if page.url == "/about/" else ("ContactPage" if page.url == "/contact/" else "WebPage") -%}
+<script type="application/ld+json">{{ {
+  "@context": "https://schema.org",
+  "@type": sdType,
+  "@id": site.url + page.url,
+  "url": site.url + page.url,
+  "name": title or site.name,
+  "description": description or site.description,
+  "inLanguage": site.locale,
+  "dateModified": (updated or page.date) | isoDate,
+  "isPartOf": { "@id": site.url + "/#website" },
+  "publisher": { "@id": site.url + "/#organization" }
+} | jsonLd | safe }}</script>
+{% endblock %}
+
+{% block main %}
+<div class="shell">
+  <article class="article static-page">
+    {%- set crumbs = "" | crumbItems(title) -%}
+    {% include "partials/breadcrumbs.njk" %}
+
+    <header class="page-head" style="padding-top:0">
+      {%- if eyebrow %}<p class="eyebrow">{{ eyebrow }}</p>{%- endif %}
+      <h1>{{ title }}</h1>
+      {%- if description %}<p>{{ description }}</p>{%- endif %}
+      {%- if updated %}
+      <p class="updated" style="margin-top:1.25rem">
+        Last updated <time datetime="{{ updated | isoDate }}">{{ updated | readableDate }}</time>
+      </p>
+      {%- endif %}
+    </header>
+
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+
+    {%- if showNewsletter !== false %}
+    <div class="widget widget--tint" style="margin-top:3rem;padding:clamp(1.5rem,4vw,2.25rem)">
+      {%- set variant = "inline" -%}
+      {%- set suffix = "-page" -%}
+      {% include "partials/newsletter.njk" %}
+    </div>
+    {%- endif %}
+  </article>
+</div>
+{% endblock %}

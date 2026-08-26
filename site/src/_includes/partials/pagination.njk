@@ -1,0 +1,23 @@
+{# with: pagination (the Eleventy pagination object) #}
+{%- if pagination.hrefs.length > 1 %}
+<nav class="pagination" aria-label="Pagination">
+  {%- if pagination.previousPageHref %}
+  <a href="{{ pagination.previousPageHref }}" rel="prev">← Newer</a>
+  {%- endif %}
+  {%- for href in pagination.hrefs %}
+    {%- set n = loop.index -%}
+    {%- if n == 1 or n == pagination.hrefs.length or (n >= pagination.pageNumber and n <= pagination.pageNumber + 2) %}
+      {%- if loop.index0 == pagination.pageNumber %}
+      <span aria-current="page">{{ n }}</span>
+      {%- else %}
+      <a href="{{ href }}">{{ n }}</a>
+      {%- endif %}
+    {%- elif n == 2 or n == pagination.hrefs.length - 1 %}
+    <span class="gap" aria-hidden="true">…</span>
+    {%- endif %}
+  {%- endfor %}
+  {%- if pagination.nextPageHref %}
+  <a href="{{ pagination.nextPageHref }}" rel="next">Older →</a>
+  {%- endif %}
+</nav>
+{%- endif %}

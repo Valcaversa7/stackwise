@@ -1,0 +1,105 @@
+{% extends "layouts/base.njk" %}
+
+{% block main %}
+{#-
+  Category / archive hub.
+
+  The post list comes from the content template:
+    · category pages  → `hubCategory` (via eleventyImport in front matter)
+    · /blog/          → `pagination` over collections.posts, 9 per page
+  Everything else (headings, grid, pagination rail, sidebar) lives here.
+-#}
+{#- `hubCategory` is a plain key ('guides' | 'all'); resolve the full entry here.
+    A string (not an object) keeps `permalink` interpolation working. -#}
+{%- set hub = (collections.hubMeta | where('key', hubCategory))[0] or { key: hubCategory, title: hubCategory, description: '' } -%}
+{#- `hubCategory` is "all" for the /blog/ archive, a category key otherwise. -#}
+{%- set base = "/blog" if hubCategory == "all" else "/" + hubCategory -%}
+{%- set perPage = 9 -%}
+
+{%- if pagination %}
+  {%- set hubPosts = pagination.items -%}
+  {%- set totalPages = pagination.pages.length -%}
+  {%- set currentPage = pagination.pageNumber + 1 -%}
+{%- else %}
+  {%- set hubPosts = collections.posts | where('data.categoryKey', hub.key) -%}
+  {%- set totalPages = (hubPosts.length / perPage) | round(0, 'ceil') -%}
+  {%- set currentPage = 1 -%}
+  {%- set hubPosts = hubPosts | limit(perPage) -%}
+{%- endif %}
+
+<div class="shell">
+  <div class="layout">
+    <div class="layout__main">
+      <header class="page-head">
+        <p class="eyebrow">
+          {%- if pagination %}{{ collections.posts.length }} articles · page {{ currentPage }} of {{ totalPages }}
+          {%- else %}{{ (collections.posts | where('data.categoryKey', hub.key)).length }} article{% if (collections.posts | where('data.categoryKey', hub.key)).length != 1 %}s{% endif %}{% endif %}
+        </p>
+        <h1>{{ title or hub.title }}</h1>
+        <p>{{ description or hub.description }}</p>
+      </header>
+
+      {%- if hubPosts.length %}
+      <div class="post-grid">
+        {%- for post in hubPosts %}
+        {% include "partials/post-card.njk" %}
+        {%- endfor %}
+      </div>
+
+      {%- if totalPages > 1 %}
+      <nav class="pagination" aria-label="{{ hub.title }} pagination">
+        {%- if currentPage > 1 %}
+        <a href="{{ base }}/{% if currentPage > 2 %}page/{{ currentPage - 1 }}/{% endif %}" rel="prev">← Newer</a>
+        {%- endif %}
+        {%- for n in range(1, totalPages + 1) %}
+          {%- set href = base + "/" if n == 1 else base + "/page/" + n + "/" %}
+          {%- if n == currentPage %}
+          <span aria-current="page">{{ n }}</span>
+          {%- else %}
+          <a href="{{ href }}">{{ n }}</a>
+          {%- endif %}
+        {%- endfor %}
+        {%- if currentPage < totalPages %}
+        <a href="{{ base }}/page/{{ currentPage + 1 }}/" rel="next">Older →</a>
+        {%- endif %}
+      </nav>
+      {%- endif %}
+
+      {%- else %}
+      <p>No articles in this section yet — check back soon, or
+        <a href="/blog/">browse the full archive</a>.</p>
+      {%- endif %}
+
+      {#- Other categories, so a hub is never a dead end -#}
+      <section class="section">
+        <div class="section-head">
+          <h2>More from {{ site.name }}</h2>
+          <a href="/blog/">All articles</a>
+        </div>
+        <div class="tag-cloud">
+          {%- for cat in collections.categoryPages %}
+          {%- if cat.data.categoryKey != hub.key %}
+          <a href="{{ cat.url }}">{{ cat.data.title }} <span style="color:var(--faint)">{{ collections | countIn(cat.data.categoryKey) }}</span></a>
+          {%- endif %}
+          {%- endfor %}
+          {%- for t in collections.tagIndex | limit(14) %}
+          <a href="/topic/{{ t.tag | slugify }}/">{{ t.tag }}</a>
+          {%- endfor %}
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="widget widget--dark" style="padding:clamp(1.5rem,4vw,2.5rem)">
+          {%- set variant = "inline" -%}
+          {%- set suffix = "-hub" -%}
+          {% include "partials/newsletter.njk" %}
+        </div>
+      </section>
+    </div>
+
+    <div class="layout__side">
+      {% include "partials/sidebar.njk" %}
+    </div>
+  </div>
+</div>
+{% endblock %}
