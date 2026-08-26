@@ -216,4 +216,4 @@ on any of: missing required pages, broken internal links, missing image files,
 `<img>` without `alt`, unparseable JSON-LD, missing schema types, missing ad
 slots or author boxes on article pages, missing title/description/canonical,
 sitemap gaps, search-index URLs that do not resolve, and articles below the
-content-depth thresholds. Run it in CI.
+content-depth thresholds. Run it in CI.  
