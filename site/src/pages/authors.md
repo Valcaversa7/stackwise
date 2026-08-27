@@ -7,7 +7,7 @@ updated: 2026-08-27
 eyebrow: About
 ---
 
-Every article on {{ site.name }} is written by a named person who tested what they describe and takes responsibility for it. Here is who they are.
+Every article on Stackwise is written by a named person who tested what they describe and takes responsibility for it. Here is who they are.
 
 <div class="contact-grid">
   <div class="contact-card">

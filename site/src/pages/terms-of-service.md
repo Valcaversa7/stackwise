@@ -9,11 +9,11 @@ eyebrow: Legal
 
 <span class="updated">Last updated 27 August 2026</span>
 
-These Terms of Service ("Terms") govern your use of {{ site.name }} at [stackwise.dpdns.org]({{ site.url }}). By using the site you agree to them. If you do not agree, please do not use the site.
+These Terms of Service ("Terms") govern your use of Stackwise at [stackwise.dpdns.org](https://stackwise.dpdns.org). By using the site you agree to them. If you do not agree, please do not use the site.
 
 ## 1. What this site is
 
-{{ site.name }} publishes editorial content about technology, hardware and productivity. Reading the site is free and requires no account. We are not a professional advice service — see the [Disclaimer](/disclaimer/).
+Stackwise publishes editorial content about technology, hardware and productivity. Reading the site is free and requires no account. We are not a professional advice service — see the [Disclaimer](/disclaimer/).
 
 ## 2. Using the site
 
@@ -29,7 +29,7 @@ We may restrict access to anyone who violates these terms.
 
 ## 3. Intellectual property
 
-All original content on {{ site.name }} — articles, illustrations, code samples, layout and design — is © 2026 {{ site.name }} unless otherwise noted.
+All original content on Stackwise — articles, illustrations, code samples, layout and design — is © 2026 Stackwise unless otherwise noted.
 
 **What you may do without asking:**
 
@@ -62,7 +62,7 @@ The site is provided "as is". We work hard to be accurate and we correct mistake
 
 ## 8. Limitation of liability
 
-To the maximum extent permitted by law, {{ site.name }} will not be liable for indirect, incidental or consequential damages arising from your use of the site, including any loss arising from reliance on our content. Nothing here limits liability for fraud or for anything that cannot lawfully be limited.
+To the maximum extent permitted by law, Stackwise will not be liable for indirect, incidental or consequential damages arising from your use of the site, including any loss arising from reliance on our content. Nothing here limits liability for fraud or for anything that cannot lawfully be limited.
 
 ## 9. Newsletter
 

@@ -11,7 +11,7 @@ eyebrow: Legal
 
 ## The short version
 
-Some links on {{ site.name }} are affiliate links. If you click one and buy something, we may earn a small commission at no extra cost to you. **Affiliate relationships never change what we write.** Prices you pay are identical whether you use our link or go direct.
+Some links on Stackwise are affiliate links. If you click one and buy something, we may earn a small commission at no extra cost to you. **Affiliate relationships never change what we write.** Prices you pay are identical whether you use our link or go direct.
 
 ## Which programmes we participate in
 

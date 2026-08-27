@@ -7,7 +7,7 @@ updated: 2026-08-27
 eyebrow: About
 ---
 
-{{ site.name }} publishes guides, tutorials and reviews about the tools people actually work with — version control, editors, shells, hardware, and the small systems that decide whether a working day goes smoothly.
+Stackwise publishes guides, tutorials and reviews about the tools people actually work with — version control, editors, shells, hardware, and the small systems that decide whether a working day goes smoothly.
 
 It is run by three people who write about this stuff because we could not find the articles we wanted to read.
 

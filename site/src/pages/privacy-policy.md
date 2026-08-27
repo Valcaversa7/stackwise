@@ -9,7 +9,7 @@ eyebrow: Legal
 
 <span class="updated">Last updated 27 August 2026</span>
 
-This Privacy Policy explains what information {{ site.name }} ("we", "us") collects when you visit [stackwise.dpdns.org]({{ site.url }}), why we collect it, and the choices you have. It applies to all pages on this website.
+This Privacy Policy explains what information Stackwise ("we", "us") collects when you visit [stackwise.dpdns.org](https://stackwise.dpdns.org), why we collect it, and the choices you have. It applies to all pages on this website.
 
 If you have questions after reading this, contact us at [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com) and we will respond within 30 days.
 
@@ -139,4 +139,4 @@ If we change this policy in a way that affects how your data is handled, we will
 
 ## 11. Contact
 
-**{{ site.name }}** · [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com) · [Contact page](/contact/)
+**Stackwise** · [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com) · [Contact page](/contact/)

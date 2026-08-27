@@ -11,7 +11,7 @@ eyebrow: Legal
 
 ## General information only
 
-Everything published on {{ site.name }} is provided for general informational and educational purposes. It is not professional advice — not legal, financial, medical, security or engineering advice — and it does not create a professional relationship between you and us.
+Everything published on Stackwise is provided for general informational and educational purposes. It is not professional advice — not legal, financial, medical, security or engineering advice — and it does not create a professional relationship between you and us.
 
 Technology changes quickly. An article that was accurate when published may become outdated. We update articles where we can and date every piece, but you should verify anything critical against primary sources before relying on it.
 
@@ -35,7 +35,7 @@ Articles link to third-party websites for reference and context. We do not contr
 
 ## Advertising and affiliate content
 
-{{ site.name }} displays advertising and uses affiliate links. This funding model creates a potential conflict of interest, and we manage it in the open:
+Stackwise displays advertising and uses affiliate links. This funding model creates a potential conflict of interest, and we manage it in the open:
 
 - Advertisers have no input into editorial content and no advance sight of it.
 - Affiliate links never change a verdict. Our [Editorial Policy](/editorial-policy/) describes the rules we hold ourselves to.
@@ -45,7 +45,7 @@ If you believe an article was influenced by a commercial relationship, tell us. 
 
 ## Use at your own risk
 
-Any action you take based on information on this site is strictly at your own risk. To the maximum extent permitted by law, {{ site.name }} will not be liable for any loss or damage arising from the use of our content.
+Any action you take based on information on this site is strictly at your own risk. To the maximum extent permitted by law, Stackwise will not be liable for any loss or damage arising from the use of our content.
 
 ## Corrections
 

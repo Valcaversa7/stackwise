@@ -9,7 +9,7 @@ eyebrow: Legal
 
 <span class="updated">Last updated 27 August 2026</span>
 
-This policy lists the cookies and similar technologies used on {{ site.name }}. It sits alongside our [Privacy Policy](/privacy-policy/), which explains advertising and data handling in more detail.
+This policy lists the cookies and similar technologies used on Stackwise. It sits alongside our [Privacy Policy](/privacy-policy/), which explains advertising and data handling in more detail.
 
 ## What a cookie is
 
