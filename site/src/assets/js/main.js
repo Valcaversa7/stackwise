@@ -595,12 +595,23 @@
           },
         })
         .then(function (r) {
-          return r.json().then(function (json) {
+          // Read the body as text first: Formspree answers 2xx with
+          // JSON on accepted submissions, but the exact body varies —
+          // the HTTP status is the source of truth, the JSON is only
+          // used for error details.
+          return r.text().then(function (text) {
+            var json = null;
+            try {
+              json = JSON.parse(text);
+            } catch (e) {
+              /* non-JSON body — fine */
+            }
             return { ok: r.ok, status: r.status, data: json };
           });
         })
         .then(function (res) {
-          if (res.ok && res.data && String(res.data.success).toLowerCase() === "true") {
+          var explicitFail = res.data && res.data.success === false;
+          if (res.ok && !explicitFail) {
             form.reset();
             say("Complaint sent ✓ We will get back to you within 5 working days.", false);
           } else {
