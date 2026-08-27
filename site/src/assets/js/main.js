@@ -596,7 +596,7 @@
         })
         .then(function (r) {
           return r.json().then(function (json) {
-            return { ok: r.ok, data: json };
+            return { ok: r.ok, status: r.status, data: json };
           });
         })
         .then(function (res) {
@@ -604,7 +604,11 @@
             form.reset();
             say("Complaint sent ✓ We will get back to you within 5 working days.", false);
           } else {
-            say("That did not go through — please email stackwiseorg@gmail.com directly.", true);
+            var detail =
+              res.data && (res.data.error || res.data.message)
+                ? " — " + (res.data.error || res.data.message)
+                : " (HTTP " + res.status + ")";
+            say("That did not go through" + detail + ". Please email stackwiseorg@gmail.com directly.", true);
           }
         })
         .catch(function () {
