@@ -461,4 +461,69 @@
       observer.observe(el);
     });
   })();
+
+  /* ---------- 9. Theme toggle ------------------------------------------ */
+  // The initial theme is applied pre-paint by an inline script in
+  // base.njk (stored choice, else the OS preference) so there is never a
+  // flash of the wrong theme. This owns interaction: click to flip,
+  // persist to localStorage, and follow OS changes live until the reader
+  // makes an explicit choice.
+  (function themeToggle() {
+    var btn = doc.querySelector("[data-theme-toggle]");
+    if (!btn) return;
+    var root = doc.documentElement;
+    var KEY = "sw-theme";
+    var meta = doc.querySelector('meta[name="theme-color"]');
+
+    function readStored() {
+      try { return win.localStorage.getItem(KEY); } catch (e) { return null; }
+    }
+    function writeStored(v) {
+      try { win.localStorage.setItem(KEY, v); } catch (e) { /* private mode */ }
+    }
+    function current() {
+      return root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    }
+    function system() {
+      return win.matchMedia && win.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark" : "light";
+    }
+    function apply(theme, animate) {
+      root.setAttribute("data-theme", theme);
+      btn.setAttribute("aria-checked", String(theme === "dark"));
+      btn.setAttribute(
+        "aria-label",
+        theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+      );
+      if (meta) meta.setAttribute("content", theme === "dark" ? "#0d1117" : "#ffffff");
+      if (animate) {
+        // Whole-page colour crossfade (CSS: html.theme-anim). Removed after
+        // the transition window so normal paint stays instant afterwards.
+        root.classList.add("theme-anim");
+        win.clearTimeout(apply._t);
+        apply._t = win.setTimeout(function () {
+          root.classList.remove("theme-anim");
+        }, 500);
+      }
+    }
+
+    // Sync ARIA state with the pre-paint value (no animation on load).
+    apply(current(), false);
+
+    btn.addEventListener("click", function () {
+      var next = current() === "dark" ? "light" : "dark";
+      writeStored(next);
+      apply(next, true);
+    });
+
+    // Until the reader chooses explicitly, keep mirroring the OS setting
+    // (e.g. the OS flips to dark at sunset while a page is open).
+    var mq = win.matchMedia && win.matchMedia("(prefers-color-scheme: dark)");
+    if (mq) {
+      var onSystemChange = function () {
+        if (!readStored()) apply(system(), true);
+      };
+      if (mq.addEventListener) mq.addEventListener("change", onSystemChange);
+    }
+  })();
 })();

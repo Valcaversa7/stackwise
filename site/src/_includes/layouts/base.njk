@@ -62,6 +62,23 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
   </noscript>
 
+  {#- Theme pre-paint: resolve the initial theme (stored choice, else the
+      OS preference) before any CSS is applied, so there is never a flash
+      of the wrong theme. The header toggle + main.js §9 own the rest. -#}
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("sw-theme");
+        if (t !== "dark" && t !== "light") {
+          t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+
   {#- The entire stylesheet, inlined: one less render-blocking request.
       Source of truth is src/assets/css/style.css (also served at
       /assets/css/style.css for hotlinking). -#}
