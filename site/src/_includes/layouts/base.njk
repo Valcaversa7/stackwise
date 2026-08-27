@@ -152,10 +152,10 @@
   </main>
 
   {#- Feedback & complaints: bottom of every page, above the footer.
-      Submissions are forwarded to the site's official inbox via FormSubmit
-      (formsubmit.co). The first submission triggers a one-time activation
-      email to that address — click it, and all further entries are
-      delivered. JS in main.js §10 handles the AJAX submit + popup. -#}
+      Submissions go to the Formspree form /f/xaeywdgd, which forwards
+      them as an email to the destination address configured in the
+      Formspree dashboard. JS in main.js §10 handles the AJAX submit +
+      popup; without JavaScript the form posts normally to Formspree. -#}
   <section class="feedback" aria-labelledby="feedback-title">
     <div class="shell feedback-inner">
       <div class="feedback__copy">
@@ -164,10 +164,8 @@
         <p>Spotted an error, have a complaint, or want to flag something that's wrong? Send it here — it goes straight to our inbox and we reply to everything that arrives.</p>
         <p class="feedback__alt">Prefer email? Write to <a href="mailto:stackwiseorg@gmail.com">stackwiseorg@gmail.com</a> directly.</p>
       </div>
-      <form id="feedbackForm" class="feedback-grid" action="https://formsubmit.co/stackwiseorg@gmail.com" method="POST">
+      <form id="feedbackForm" class="feedback-grid" action="https://formspree.io/f/xaeywdgd" method="POST">
         <input type="hidden" name="_subject" value="New feedback / complaint from the Stackwise website">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
         <input class="hp-field" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="feedback-row">
           <div class="field">

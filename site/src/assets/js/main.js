@@ -528,11 +528,12 @@
   })();
 
   /* ---------- 10. Feedback / complaints form --------------------------- */
-  // Bottom-of-page form (base.njk). Submissions are forwarded to the
-  // site's official inbox by FormSubmit; we post to the same endpoint with
-  // an Accept: application/json header so the success popup can be shown
-  // without a page reload. Without JavaScript the form still works — it
-  // posts normally to FormSubmit.
+  // Bottom-of-page form (base.njk). Submissions go to the Formspree form
+  // /f/xaeywdgd, which emails the destination address set in the
+  // Formspree dashboard. We post JSON with Accept: application/json so
+  // Formspree answers with a JSON body (no redirect) and the success
+  // popup can be shown without a page reload. Without JavaScript the
+  // form still works — it posts normally to Formspree.
   (function feedbackForm() {
     var form = doc.getElementById("feedbackForm");
     if (!form) return;
@@ -578,15 +579,24 @@
       btn.disabled = true;
       btn.textContent = "Sending…";
 
+      // Serialize the form to a plain object for the JSON payload.
+      var data = {};
+      Array.prototype.forEach.call(form.elements, function (el) {
+        if (el.name && el.type !== "submit") data[el.name] = el.value;
+      });
+
       win
-        .fetch("https://formsubmit.co/stackwiseorg@gmail.com", {
+        .fetch("https://formspree.io/f/xaeywdgd", {
           method: "POST",
-          body: new FormData(form),
-          headers: { Accept: "application/json" },
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
         })
         .then(function (r) {
-          return r.json().then(function (data) {
-            return { ok: r.ok, data: data };
+          return r.json().then(function (json) {
+            return { ok: r.ok, data: json };
           });
         })
         .then(function (res) {
