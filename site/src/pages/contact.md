@@ -3,7 +3,7 @@ layout: layouts/page.njk
 title: "Contact Us"
 description: "Get in touch with the Stackwise team — tips, corrections, privacy requests, or a pitch."
 permalink: /contact/
-updated: 2026-08-01
+updated: 2026-08-27
 eyebrow: Contact
 showNewsletter: false
 ---
@@ -14,22 +14,22 @@ We read everything that arrives. Most messages get a reply within a few days.
   <div class="contact-card">
     <h3>General &amp; tips</h3>
     <p>Questions about an article, a tool we should test, or something you think we missed.</p>
-    <p><a href="mailto:hello@stackwise.example">hello@stackwise.example</a></p>
+    <p><a href="mailto:stackwiseorg@gmail.com">stackwiseorg@gmail.com</a></p>
   </div>
   <div class="contact-card">
     <h3>Corrections</h3>
     <p>Spotted a factual error? Send the URL and what you believe is wrong. We verify and fix.</p>
-    <p><a href="mailto:corrections@stackwise.example">corrections@stackwise.example</a></p>
+    <p><a href="mailto:stackwiseorg@gmail.com">stackwiseorg@gmail.com</a></p>
   </div>
   <div class="contact-card">
     <h3>Privacy requests</h3>
     <p>Access, deletion, or questions about advertising cookies and your data.</p>
-    <p><a href="mailto:privacy@stackwise.example">privacy@stackwise.example</a></p>
+    <p><a href="mailto:stackwiseorg@gmail.com">stackwiseorg@gmail.com</a></p>
   </div>
   <div class="contact-card">
     <h3>Pitches</h3>
     <p>Written something you think belongs here? Tell us the finding, not just the topic.</p>
-    <p><a href="mailto:hello@stackwise.example">hello@stackwise.example</a></p>
+    <p><a href="mailto:stackwiseorg@gmail.com">stackwiseorg@gmail.com</a></p>
   </div>
 </div>
 

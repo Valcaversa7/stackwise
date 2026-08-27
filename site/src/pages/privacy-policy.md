@@ -3,15 +3,15 @@ layout: layouts/page.njk
 title: "Privacy Policy"
 description: "How Stackwise collects, uses and protects your data — including a full explanation of Google AdSense and third-party vendor cookies."
 permalink: /privacy-policy/
-updated: 2026-08-01
+updated: 2026-08-27
 eyebrow: Legal
 ---
 
-<span class="updated">Last updated 1 August 2026</span>
+<span class="updated">Last updated 27 August 2026</span>
 
-This Privacy Policy explains what information {{ site.name }} ("we", "us") collects when you visit [stackwise.example]({{ site.url }}), why we collect it, and the choices you have. It applies to all pages on this website.
+This Privacy Policy explains what information {{ site.name }} ("we", "us") collects when you visit [stackwise.dpdns.org]({{ site.url }}), why we collect it, and the choices you have. It applies to all pages on this website.
 
-If you have questions after reading this, contact us at [privacy@stackwise.example](mailto:privacy@stackwise.example) and we will respond within 30 days.
+If you have questions after reading this, contact us at [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com) and we will respond within 30 days.
 
 ## 1. Information we collect
 
@@ -39,7 +39,7 @@ We use this in aggregate to understand which articles are useful and to detect a
 
 ### Cookies and similar technologies
 
-We use cookies for three purposes: remembering your cookie-consent choice, remembering your theme preference, and — with your consent — measuring readership and serving advertising. See our [Cookie Policy](/cookie-policy/) for the complete list.
+We use cookies and local storage for three purposes: remembering your cookie-consent choice, remembering your theme preference, and — with your consent — measuring readership and serving advertising. See our [Cookie Policy](/cookie-policy/) for the complete list.
 
 ## 2. Advertising and Google AdSense
 
@@ -86,7 +86,7 @@ We do not share your email address, name or contact details with any advertising
 
 ## 3. Analytics
 
-We use privacy-respecting analytics to measure readership. Where our analytics provider supports it, IP addresses are truncated and no cross-site tracking or persistent identifiers are used. We do not build individual user profiles from analytics data.
+We use **Vercel Web Analytics** (operated by Vercel Inc.) to measure readership. It sets no cookies and uses no persistent identifiers: it collects only minimal, aggregated data (page views, referrers and approximate region) and performs no cross-site tracking. We do not build individual user profiles from analytics data.
 
 If we ever change analytics provider, this section will be updated before the change takes effect.
 
@@ -115,7 +115,7 @@ Depending on where you live, you may have the right to:
 - **Export** your data in a portable format
 - **Withdraw consent** at any time, without affecting prior processing
 
-For most readers this is simple: unsubscribing from the newsletter deletes your email address within 30 days, and we hold very little else. To exercise any other right, email [privacy@stackwise.example](mailto:privacy@stackwise.example). We will respond within 30 days.
+For most readers this is simple: unsubscribing from the newsletter deletes your email address within 30 days, and we hold very little else. To exercise any other right, email [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com). We will respond within 30 days.
 
 **EEA, UK and Swiss readers:** you also have the right to lodge a complaint with your local data protection authority.
 
@@ -139,4 +139,4 @@ If we change this policy in a way that affects how your data is handled, we will
 
 ## 11. Contact
 
-**{{ site.name }}** · [privacy@stackwise.example](mailto:privacy@stackwise.example) · [Contact page](/contact/)
+**{{ site.name }}** · [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com) · [Contact page](/contact/)

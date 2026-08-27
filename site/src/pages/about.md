@@ -3,7 +3,7 @@ layout: layouts/page.njk
 title: "About Us"
 description: "Who runs Stackwise, how we test what we review, how the site is funded, and how to get in touch."
 permalink: /about/
-updated: 2026-08-01
+updated: 2026-08-27
 eyebrow: About
 ---
 
@@ -48,9 +48,9 @@ We do not accept payment for coverage, we do not accept sponsored posts, and adv
 
 ## Get in touch
 
-- General questions and tips: [hello@stackwise.example](mailto:hello@stackwise.example)
-- Corrections: [corrections@stackwise.example](mailto:corrections@stackwise.example)
-- Privacy requests: [privacy@stackwise.example](mailto:privacy@stackwise.example)
+- General questions and tips: [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com)
+- Corrections: [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com)
+- Privacy requests: [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com)
 
 Or use the [contact form](/contact/). We read everything, and we answer most of it within a few days.
 

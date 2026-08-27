@@ -3,11 +3,11 @@ layout: layouts/page.njk
 title: "Editorial Policy"
 description: "Our standards for accuracy, corrections, review units, affiliate relationships and AI-generated content."
 permalink: /editorial-policy/
-updated: 2026-08-01
+updated: 2026-08-27
 eyebrow: About
 ---
 
-<span class="updated">Last updated 1 August 2026</span>
+<span class="updated">Last updated 27 August 2026</span>
 
 This page exists so you can hold us to something specific. It covers how we write, how we test, how we correct, and where money could influence us.
 
@@ -21,7 +21,7 @@ When a tool's behaviour changes after publication, we update the article and cha
 
 We correct mistakes. The process:
 
-1. Email [corrections@stackwise.example](mailto:corrections@stackwise.example) with the article URL and what you believe is wrong.
+1. Email [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com) with the article URL and what you believe is wrong.
 2. We verify. If you are right, we fix it.
 3. Minor fixes (typos, broken links) are made quietly. Substantive fixes — a wrong number, a mistaken claim, a change of verdict — get a dated correction note at the bottom of the article.
 
@@ -70,4 +70,4 @@ If an article is critical of a company or product, we will offer that company a 
 
 ## 10. Complaints
 
-Complaints about content go to [corrections@stackwise.example](mailto:corrections@stackwise.example). Complaints about advertising or privacy go to [privacy@stackwise.example](mailto:privacy@stackwise.example). We acknowledge within three working days and resolve within thirty.
+Complaints about content go to [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com). Complaints about advertising or privacy go to [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com). We acknowledge within three working days and resolve within thirty.

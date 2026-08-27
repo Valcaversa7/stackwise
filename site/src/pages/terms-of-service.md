@@ -3,13 +3,13 @@ layout: layouts/page.njk
 title: "Terms of Service"
 description: "The terms that govern your use of Stackwise — plain English, with the parts that actually matter called out."
 permalink: /terms-of-service/
-updated: 2026-08-01
+updated: 2026-08-27
 eyebrow: Legal
 ---
 
-<span class="updated">Last updated 1 August 2026</span>
+<span class="updated">Last updated 27 August 2026</span>
 
-These Terms of Service ("Terms") govern your use of {{ site.name }} at [stackwise.example]({{ site.url }}). By using the site you agree to them. If you do not agree, please do not use the site.
+These Terms of Service ("Terms") govern your use of {{ site.name }} at [stackwise.dpdns.org]({{ site.url }}). By using the site you agree to them. If you do not agree, please do not use the site.
 
 ## 1. What this site is
 
@@ -42,7 +42,7 @@ All original content on {{ site.name }} — articles, illustrations, code sample
 - Republishing a full article, or a substantial portion of one, on another site
 - Using our name or logo in a way that implies endorsement
 
-To ask, email [hello@stackwise.example](mailto:hello@stackwise.example). We say yes more often than no.
+To ask, email [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com). We say yes more often than no.
 
 ## 4. Third-party links
 
@@ -78,4 +78,4 @@ These Terms are governed by the laws of England and Wales, without regard to con
 
 ## 12. Contact
 
-Questions about these Terms: [hello@stackwise.example](mailto:hello@stackwise.example) or the [contact page](/contact/).
+Questions about these Terms: [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com) or the [contact page](/contact/).

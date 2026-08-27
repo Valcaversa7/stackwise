@@ -1,15 +1,16 @@
 /**
  * Global site data — every template can read `site.*`.
  *
- * ⚠️  Change `url`, `adSenseClient`, `adPublisherId` and `newsletter.action`
- *     before you deploy and before you request AdSense review.
+ * ⚠️  `url`, `adSense.client` and `adSense.publisherId` are live.
+ *     `newsletter.action` is still a placeholder until a provider endpoint
+ *     is set (subscriptions currently show a "not wired up yet" notice).
  */
 module.exports = {
   name: "Stackwise",
   tagline: "Practical guides for the tools you actually use",
   description:
     "Stackwise publishes clear, tested guides, tutorials and honest reviews on developer tooling, hardware and productivity systems — written by people who use this stuff daily.",
-  url: "https://www.stackwise.example",
+  url: "https://stackwise.dpdns.org",
   locale: "en",
   defaultOgType: "website",
   themeColor: "#0f172a",

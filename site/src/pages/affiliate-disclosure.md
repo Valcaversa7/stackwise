@@ -3,11 +3,11 @@ layout: layouts/page.njk
 title: "Affiliate Disclosure"
 description: "How affiliate links work on Stackwise, which programmes we participate in, and the rules we apply to keep reviews independent."
 permalink: /affiliate-disclosure/
-updated: 2026-08-01
+updated: 2026-08-27
 eyebrow: Legal
 ---
 
-<span class="updated">Last updated 1 August 2026</span>
+<span class="updated">Last updated 27 August 2026</span>
 
 ## The short version
 
@@ -39,4 +39,4 @@ In line with the US Federal Trade Commission's guidelines on endorsements and te
 
 ## Questions
 
-If you think we have got this wrong anywhere, email [hello@stackwise.example](mailto:hello@stackwise.example). We would rather hear it from a reader than discover it ourselves.
+If you think we have got this wrong anywhere, email [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com). We would rather hear it from a reader than discover it ourselves.

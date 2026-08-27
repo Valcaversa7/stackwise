@@ -3,11 +3,11 @@ layout: layouts/page.njk
 title: "Cookie Policy"
 description: "Every cookie Stackwise sets or allows, what it does, how long it lasts, and how to control it."
 permalink: /cookie-policy/
-updated: 2026-08-01
+updated: 2026-08-27
 eyebrow: Legal
 ---
 
-<span class="updated">Last updated 1 August 2026</span>
+<span class="updated">Last updated 27 August 2026</span>
 
 This policy lists the cookies and similar technologies used on {{ site.name }}. It sits alongside our [Privacy Policy](/privacy-policy/), which explains advertising and data handling in more detail.
 
@@ -20,9 +20,13 @@ A cookie is a small text file a website stores in your browser. Cookies are not 
 | Cookie | Purpose | Duration |
 | --- | --- | --- |
 | `sw-consent` | Remembers your cookie-consent choice so we do not ask again | 12 months |
-| `theme` (localStorage) | Remembers a manually chosen light/dark theme | Until cleared |
+| `sw-theme` (localStorage) | Remembers a manually chosen light/dark theme | Until cleared |
 
 Both are strictly necessary for the site to function as you configured it. Neither tracks you across other websites.
+
+## Analytics (no cookies)
+
+We use **Vercel Web Analytics** (operated by Vercel Inc.) to measure aggregate readership — page views, referrers and approximate region. It sets no cookies and uses no persistent identifiers or cross-site tracking, so it does not appear in the tables above. More information: [vercel.com/docs/analytics](https://vercel.com/docs/analytics).
 
 ## Cookies set by our advertising partners
 
@@ -31,7 +35,6 @@ When you view a page containing an advertisement, Google AdSense and its partner
 | Provider | Purpose | Documentation |
 | --- | --- | --- |
 | Google (DoubleClick) | Serving and measuring personalised ads | [policies.google.com/technologies/ads](https://policies.google.com/technologies/ads) |
-| Google Analytics / measurement | Aggregate traffic measurement | [policies.google.com/privacy](https://policies.google.com/privacy) |
 | Certified third-party ad vendors | Ad auction participation, frequency capping | [Google ad tech provider list](https://support.google.com/admanager/answer/9490902) |
 
 These cookies allow Google and its partners to serve ads based on your prior visits to this site and other sites on the internet. You can opt out of personalised advertising at [Google Ads Settings](https://www.google.com/settings/ads), or across many vendors at [youronlinechoices.eu](https://www.youronlinechoices.eu/) and [aboutads.info/choices](https://www.aboutads.info/choices/).

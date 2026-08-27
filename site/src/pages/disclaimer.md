@@ -3,11 +3,11 @@ layout: layouts/page.njk
 title: "Disclaimer"
 description: "What Stackwise content is, what it is not, and the limits of what we test and verify."
 permalink: /disclaimer/
-updated: 2026-08-01
+updated: 2026-08-27
 eyebrow: Legal
 ---
 
-<span class="updated">Last updated 1 August 2026</span>
+<span class="updated">Last updated 27 August 2026</span>
 
 ## General information only
 
@@ -49,4 +49,4 @@ Any action you take based on information on this site is strictly at your own ri
 
 ## Corrections
 
-We would rather fix a mistake than defend it. If you spot an error, email [corrections@stackwise.example](mailto:corrections@stackwise.example). Substantive corrections are applied to the article and noted with a date.
+We would rather fix a mistake than defend it. If you spot an error, email [stackwiseorg@gmail.com](mailto:stackwiseorg@gmail.com). Substantive corrections are applied to the article and noted with a date.
