@@ -526,4 +526,84 @@
       if (mq.addEventListener) mq.addEventListener("change", onSystemChange);
     }
   })();
+
+  /* ---------- 10. Feedback / complaints form --------------------------- */
+  // Bottom-of-page form (base.njk). Submissions are forwarded to the
+  // site's official inbox by FormSubmit; we post to the same endpoint with
+  // an Accept: application/json header so the success popup can be shown
+  // without a page reload. Without JavaScript the form still works — it
+  // posts normally to FormSubmit.
+  (function feedbackForm() {
+    var form = doc.getElementById("feedbackForm");
+    if (!form) return;
+    var btn = form.querySelector('button[type="submit"]');
+    var toast = doc.getElementById("feedbackToast");
+    var msg = toast && toast.querySelector(".toast__msg");
+
+    function say(text, isError) {
+      if (!msg) return;
+      msg.textContent = text;
+      toast.setAttribute("data-error", String(Boolean(isError)));
+      toast.classList.add("is-visible");
+      win.clearTimeout(say._t);
+      say._t = win.setTimeout(function () {
+        toast.classList.remove("is-visible");
+      }, 6500);
+    }
+
+    if (toast) {
+      var close = toast.querySelector("[data-toast-close]");
+      if (close) {
+        close.addEventListener("click", function () {
+          toast.classList.remove("is-visible");
+          win.clearTimeout(say._t);
+        });
+      }
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Honeypot filled => almost certainly a bot. Fail silently.
+      var honey = form.querySelector('input[name="company"]');
+      if (honey && honey.value) return;
+
+      var email = form.querySelector('input[name="email"]');
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value)) {
+        say("Please enter a valid email address so we can reply.", true);
+        email.focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Sending…";
+
+      win
+        .fetch("https://formsubmit.co/stackwiseorg@gmail.com", {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        })
+        .then(function (r) {
+          return r.json().then(function (data) {
+            return { ok: r.ok, data: data };
+          });
+        })
+        .then(function (res) {
+          if (res.ok && res.data && String(res.data.success).toLowerCase() === "true") {
+            form.reset();
+            say("Complaint sent ✓ We will get back to you within 5 working days.", false);
+          } else {
+            say("That did not go through — please email stackwiseorg@gmail.com directly.", true);
+          }
+        })
+        .catch(function () {
+          say("That did not go through — please email stackwiseorg@gmail.com directly.", true);
+        })
+        .then(function () {
+          btn.disabled = false;
+          btn.textContent = "Send feedback";
+        });
+    });
+  })();
 })();

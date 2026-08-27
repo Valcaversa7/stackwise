@@ -151,6 +151,60 @@
     {% block main %}{% endblock %}
   </main>
 
+  {#- Feedback & complaints: bottom of every page, above the footer.
+      Submissions are forwarded to the site's official inbox via FormSubmit
+      (formsubmit.co). The first submission triggers a one-time activation
+      email to that address — click it, and all further entries are
+      delivered. JS in main.js §10 handles the AJAX submit + popup. -#}
+  <section class="feedback" aria-labelledby="feedback-title">
+    <div class="shell feedback-inner">
+      <div class="feedback__copy">
+        <p class="eyebrow">Feedback &amp; complaints</p>
+        <h2 id="feedback-title">Tell us what you think</h2>
+        <p>Spotted an error, have a complaint, or want to flag something that's wrong? Send it here — it goes straight to our inbox and we reply to everything that arrives.</p>
+        <p class="feedback__alt">Prefer email? Write to <a href="mailto:stackwiseorg@gmail.com">stackwiseorg@gmail.com</a> directly.</p>
+      </div>
+      <form id="feedbackForm" class="feedback-grid" action="https://formsubmit.co/stackwiseorg@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New feedback / complaint from the Stackwise website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input class="hp-field" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="feedback-row">
+          <div class="field">
+            <label for="f-name">Your name</label>
+            <input id="f-name" type="text" name="name" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="f-email">Email address</label>
+            <input id="f-email" type="email" name="email" required autocomplete="email">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-topic">What is this about?</label>
+          <select id="f-topic" name="topic">
+            <option>A complaint</option>
+            <option>A correction</option>
+            <option>General feedback</option>
+            <option>Advertising</option>
+            <option>Privacy</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-msg">Your message</label>
+          <textarea id="f-msg" name="message" required></textarea>
+        </div>
+        <div>
+          <button class="btn" type="submit">Send feedback</button>
+        </div>
+      </form>
+    </div>
+    {#- Result popup (fixed-position toast) — shown by main.js §10 -#}
+    <div class="toast" id="feedbackToast" role="status" aria-live="polite">
+      <span class="toast__msg"></span>
+      <button type="button" class="toast__close" data-toast-close aria-label="Dismiss message">×</button>
+    </div>
+  </section>
+
   {% include "partials/footer.njk" %}
   {% include "partials/consent.njk" %}
 

@@ -1354,6 +1354,75 @@ a.badge:hover { background: var(--ink); color: #fff; }
 .footer-bottom ul { list-style: none; display: flex; flex-wrap: wrap; gap: 1.1rem; margin: 0; padding: 0; }
 .footer-bottom .legal-note { max-width: 46rem; line-height: 1.6; }
 
+/* ---------- 16b. Feedback & complaints -------------------------------- */
+/* Bottom-of-page feedback box, rendered above the footer on every page
+   (base.njk). Submissions post to FormSubmit, which forwards them to the
+   site's official inbox; the result popup is the .toast below. */
+.feedback {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  padding: clamp(2.5rem, 6vw, 4rem) 0;
+}
+.feedback-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+.feedback__copy p { margin: 0 0 0.85rem; font-size: 0.95rem; line-height: 1.6; color: var(--muted); }
+.feedback__copy h2 { margin: 0 0 0.85rem; font-size: clamp(1.5rem, 3vw, 2rem); }
+.feedback__alt { font-size: 0.85rem; margin-bottom: 0; }
+.feedback-grid { display: grid; gap: 0.9rem; }
+.feedback-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+.feedback-grid .field input,
+.feedback-grid .field textarea,
+.feedback-grid .field select { width: 100%; }
+.feedback-grid textarea { min-height: 7.5rem; resize: vertical; }
+
+/* Result popup. Fixed to the bottom-centre of the viewport so it is
+   visible regardless of where the form is on the page. */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translate(-50%, 0.75rem);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: min(92vw, 36rem);
+  padding: 0.85rem 1.1rem;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
+  z-index: 80;
+}
+.toast.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, 0); pointer-events: auto; }
+.toast[data-error="true"] { background: #a11c26; color: #fff; }
+.toast__close {
+  flex: none;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0.1rem 0.3rem;
+  opacity: 0.75;
+}
+.toast__close:hover { opacity: 1; }
+
+@media (max-width: 48rem) {
+  .feedback-inner { grid-template-columns: 1fr; }
+  .feedback-row { grid-template-columns: 1fr; }
+}
+
 /* ---------- 17. Consent banner ----------------------------------------- */
 .consent {
   position: fixed;
@@ -1423,7 +1492,8 @@ a.badge:hover { background: var(--ink); color: #fff; }
 /* ---------- 19. Print -------------------------------------------------- */
 @media print {
   .site-header, .site-footer, .sidebar, .ad-slot, .share-row,
-  .consent, .progress, .nav-toggle, .pager, .related, .breadcrumbs { display: none !important; }
+  .consent, .progress, .nav-toggle, .pager, .related, .breadcrumbs,
+  .feedback, .toast { display: none !important; }
   body { font-size: 11pt; color: #000; }
   .article { max-width: 100%; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555; }
