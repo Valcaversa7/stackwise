@@ -31,7 +31,7 @@ Our full standards, including how we handle corrections and commercial relations
 
 ## Who writes here
 
-**Maya Cohen — Editor-in-chief.** Eleven years building developer tooling, most recently on build systems and CI infrastructure. Writes about version control, editors and shells. [Full bio](/authors/)
+**Belsso — Editor-in-chief.** Eleven years building developer tooling, most recently on build systems and CI infrastructure. Writes about version control, editors and shells. [Full bio](/authors/)
 
 **Devan Nair — Hardware editor.** Runs the measurement bench. Previously worked in display calibration, which is why our monitor testing involves more instruments than most readers expect.
 

@@ -19,10 +19,10 @@ const monogram = (initials, from, to) =>
 
 module.exports = {
   mayacohen: {
-    name: "Maya Cohen",
+    name: "Belsso",
     role: "Editor-in-chief",
-    avatar: monogram("MC", "#0d1117", "#374151"),
-    bio: "Maya has shipped developer tooling for eleven years and writes about the parts nobody documents: build systems, hardware that survives a backpack, and workflows that survive a deadline.",
+    avatar: monogram("B", "#0d1117", "#374151"),
+    bio: "Belsso has shipped developer tooling for eleven years and writes about the parts nobody documents: build systems, hardware that survives a backpack, and workflows that survive a deadline.",
     url: "/about/",
     social: [
       { label: "X / Twitter", url: "https://x.com/stackwise" },

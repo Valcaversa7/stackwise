@@ -11,7 +11,7 @@ Every article on Stackwise is written by a named person who tested what they des
 
 <div class="contact-grid">
   <div class="contact-card">
-    <h3>Maya Cohen</h3>
+    <h3>Belsso</h3>
     <p><strong>Editor-in-chief.</strong> Eleven years building developer tooling, most of it on build systems and CI infrastructure. Writes about version control, editors, shells and the workflow decisions that quietly decide how a team works.</p>
     <p>Previously: platform engineering at two companies you have used software from. Occasional conference speaker on build performance.</p>
   </div>
