@@ -35,6 +35,16 @@ module.exports = function (eleventyConfig) {
       .sort((a, b) => b.date - a.date)
   );
 
+  // "What's New" feed (/whats-new/): posts flagged with a `news` tag,
+  // newest first. The page features the first entry and falls back to
+  // nothing (the latest-articles grid still shows) when there is none.
+  eleventyConfig.addCollection("newsPosts", (api) =>
+    api
+      .getFilteredByGlob(`${SRC}/posts/*.md`)
+      .filter((p) => !p.data.draft && (p.data.tags || []).includes("news"))
+      .sort((a, b) => b.date - a.date)
+  );
+
   // Category hub pages (/guides/, /tutorials/, /reviews/) declare their key.
   eleventyConfig.addCollection("categoryPages", (api) =>
     api
