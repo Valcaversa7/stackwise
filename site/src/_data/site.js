@@ -25,9 +25,9 @@ module.exports = {
   // empty ad boxes.
   adSense: {
     enabled: true,
-    client: "ca-pub-0000000000000000", // replace after approval
-    publisherId: "pub-0000000000000000", // for ads.txt
-    adsTxtLine: null, // e.g. "google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0"
+    client: "ca-pub-7435877725775872",
+    publisherId: "pub-7435877725775872", // for ads.txt
+    adsTxtLine: "google.com, pub-7435877725775872, DIRECT, f08c47fec0942fa0",
     lazyLoad: true,
     // Slots: name -> ad unit id. Empty ids render as labelled placeholders.
     slots: {
