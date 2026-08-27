@@ -75,10 +75,10 @@ module.exports = {
 
   nav: [
     { title: "Home", url: "/" },
+    { title: "What's New", url: "/whats-new/" },
     { title: "Guides", url: "/guides/" },
     { title: "Tutorials", url: "/tutorials/" },
     { title: "Reviews", url: "/reviews/" },
-    { title: "What's New", url: "/whats-new/" },
     { title: "About Us", url: "/about/" },
     { title: "Contact", url: "/contact/" },
   ],
